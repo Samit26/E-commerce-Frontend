@@ -1,0 +1,14 @@
+export { default as AddProductForm } from "./AddProductForm";
+export { default as Brands } from "./Brands";
+export { default as Categories } from "./Categories";
+export { default as Footer } from "./Footer";
+export { default as Header } from "./Header";
+export { default as Popular } from "./Popular"
+export { default as Product } from "./Product"
+export { default as ProductsContainer } from "./ProductsContainer"
+export { default as Review } from "./Review"
+export { default as SameBrandProduct } from "./SameBrandProduct"
+export { default as SameCategoryProduct } from "./SameCategoryProduct"
+export { default as Similar } from "./Similar"
+export { default as StarRating } from "./StarRating"
+export { default as Trending } from "./Trending"

@@ -1,0 +1,14 @@
+export { default as AddProductsPage } from "./AddProductsPage";
+export { default as BrandsPage } from "./BrandsPage";
+export { default as CartPage } from "./CartPage";
+export { default as CategoriesPage } from "./CategoriesPage";
+export { default as CheckoutPage } from "./CheckoutPage";
+export { default as HomePage } from "./HomePage";
+export { default as LoginPage } from "./LoginPage";
+export { default as NotFoundPage } from "./NotFoundPage";
+export { default as PaymentPage } from "./PaymentPage";
+export { default as ProductPage } from "./ProductPage";
+export { default as ProfilePage } from "./ProfilePage";
+export { default as SearchPage } from "./SearchPage";
+export { default as SignupPage } from "./SignupPage";
+export { default as WishlistPage } from "./WishlistPage";
