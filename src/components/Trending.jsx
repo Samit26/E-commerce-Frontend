@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaChevronRight, FaRegHeart, FaChevronLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";
 import CartContext from "../context/Cart/CartContext";
@@ -11,6 +11,17 @@ export default function Trending() {
   const [trending, setTrending] = useState([]);
   const timerRef = useRef(null); // Stores timer reference without triggering re-renders
   const { handleAddToCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const handleBuyNow = async (product) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    await handleAddToCart(product);
+    navigate("/cart");
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -63,7 +74,7 @@ export default function Trending() {
           className="flex transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {trending.map((product, index) => (
+          {trending.map((product) => (
             <div key={product._id} className="flex-shrink-0 w-full">
               <div className="flex flex-col md:flex-row items-center justify-between w-full gap-6 md:gap-10">
                 {/* Image Section */}
@@ -98,7 +109,10 @@ export default function Trending() {
                       </span>
                     ) : (
                       <>
-                        <button className="bg-blue-500 flex items-center justify-center text-base h-10 text-white px-4 py-2 rounded-md">
+                        <button
+                          className="bg-blue-500 flex items-center justify-center text-base h-10 text-white px-4 py-2 rounded-md"
+                          onClick={() => handleBuyNow(product)}
+                        >
                           Buy Now
                         </button>
                         <button

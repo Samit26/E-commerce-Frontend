@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import config from "../../config";
 import StarRating from "./StarRating";
 import CartContext from "../context/Cart/CartContext";
@@ -9,6 +9,17 @@ import CartContext from "../context/Cart/CartContext";
 const ProductsContainer = () => {
   const [products, setProducts] = useState([]);
   const { handleAddToCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const handleBuyNow = async (product) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    await handleAddToCart(product);
+    navigate("/cart");
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -93,7 +104,10 @@ const ProductsContainer = () => {
                   </span>
                 ) : (
                   <>
-                    <button className="bg-blue-500 flex items-center justify-center text-sm h-full text-white p-2 rounded-md">
+                    <button
+                      className="bg-blue-500 flex items-center justify-center text-sm h-full text-white p-2 rounded-md"
+                      onClick={() => handleBuyNow(product)}
+                    >
                       Buy Now
                     </button>
                     <button

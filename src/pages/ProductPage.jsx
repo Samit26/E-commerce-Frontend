@@ -29,19 +29,27 @@ const ProductPage = () => {
   }, [productid]);
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-4 md:px-8 mt-8">
-      {isLoading ? (
-        // Loader Section
-        <div className="w-full h-[200px] flex justify-center items-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
-        </div>
-      ) : (
-        <>
-          <Product product={product} />
-          <Review product={product} />
-          <Similar product={product} />
-        </>
-      )}
+    <div className="w-full min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex flex-col items-center py-10 px-3 md:px-8 mt-8">
+      <div className="w-full max-w-5xl bg-white shadow-2xl rounded-2xl p-6 md:p-10 space-y-10 border border-blue-100">
+        {isLoading ? (
+          // Loader Section
+          <div className="w-full h-[200px] flex justify-center items-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+          </div>
+        ) : (
+          <>
+            <div className="mb-8">
+              <Product product={product} />
+            </div>
+            <div className="mb-8">
+              <Review product={product} />
+            </div>
+            <div>
+              <Similar product={product} />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

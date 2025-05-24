@@ -1,12 +1,18 @@
 import React, { useContext } from "react";
-import { Trending, Brands, Categories, Popular, ProductsContainer } from "../components";
+import {
+  Trending,
+  Brands,
+  Categories,
+  Popular,
+  ProductsContainer,
+} from "../components";
 import ProductContext from "../context/Product/ProductContext";
 
 const HomePage = () => {
   const { loading } = useContext(ProductContext); // Access loading state from context
 
   return (
-    <>
+    <div className="w-full min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex flex-col items-center">
       {loading ? (
         // Loading Spinner
         <div className="w-full h-screen flex justify-center items-center">
@@ -14,15 +20,25 @@ const HomePage = () => {
         </div>
       ) : (
         // Main Content
-        <>
-          <Trending />
-          <Brands />
-          <Categories />
-          <Popular />
-          <ProductsContainer />
-        </>
+        <div className="w-full max-w-7xl mx-auto px-3 md:px-8 py-8 space-y-12">
+          <div className="mb-8">
+            <Trending />
+          </div>
+          <div className="mb-8">
+            <Brands />
+          </div>
+          <div className="mb-8">
+            <Categories />
+          </div>
+          <div className="mb-8">
+            <Popular />
+          </div>
+          <div>
+            <ProductsContainer />
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

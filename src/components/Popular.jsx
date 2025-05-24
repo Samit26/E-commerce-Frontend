@@ -1,13 +1,28 @@
 import React, { useContext } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StarRating from "./StarRating";
 import ProductContext from "../context/Product/ProductContext";
 import CartContext from "../context/Cart/CartContext";
 
 const Popular = () => {
   const { popularProducts } = useContext(ProductContext);
-  const { handleAddToCart } = useContext(CartContext);
+  const { handleAddToCart, handleOnClickCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  // Buy Now handler
+  const handleBuyNow = async (product) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    await handleAddToCart(product);
+    // Fetch latest cart before redirect
+    await handleOnClickCart();
+    navigate("/cart");
+  };
+
   return (
     <div className="w-full py-4 px-6 rounded-lg mb-8">
       <h2 className="text-black text-xl font-semibold mb-4 text-center">
@@ -78,7 +93,10 @@ const Popular = () => {
                   </span>
                 ) : (
                   <>
-                    <button className="bg-blue-500 flex items-center justify-center text-sm h-full text-white p-2 rounded-md">
+                    <button
+                      className="bg-blue-500 flex items-center justify-center text-sm h-full text-white p-2 rounded-md"
+                      onClick={() => handleBuyNow(product)}
+                    >
                       Buy Now
                     </button>
                     <button

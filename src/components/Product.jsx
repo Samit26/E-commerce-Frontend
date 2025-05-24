@@ -2,16 +2,29 @@ import React, { useContext, useState } from "react";
 import StarRating from "./StarRating";
 import { FaRegHeart } from "react-icons/fa";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartContext from "../context/Cart/CartContext";
 
 const Product = ({ product }) => {
   const [image, setImage] = useState();
-  const { handleAddToCart } = useContext(CartContext);
+  const { handleAddToCart, handleOnClickCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   function handleImage(image) {
     setImage(image);
   }
+
+  // Buy Now handler
+  const handleBuyNow = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    await handleAddToCart(product);
+    await handleOnClickCart();
+    navigate("/cart");
+  };
 
   return (
     <div className="w-full max-w-screen-xl mx-auto h-max overflow-hidden mt-8 pt-10 md:mt-10 md:px-16">
@@ -99,7 +112,10 @@ const Product = ({ product }) => {
                 </span>
               ) : (
                 <>
-                  <button className="bg-blue-500 flex items-center justify-center h-full text-white px-4 sm:px-6 py-3 rounded-md">
+                  <button
+                    className="bg-blue-500 flex items-center justify-center h-full text-white px-4 sm:px-6 py-3 rounded-md"
+                    onClick={handleBuyNow}
+                  >
                     Buy Now
                   </button>
                   <button

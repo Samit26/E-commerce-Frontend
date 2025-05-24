@@ -51,7 +51,7 @@ const CartContextProvider = ({ children }) => {
   };
 
   const handleOnClickCart = () => {
-    if (cart.length > 0) return;
+    // Always fetch latest cart from server
     const fetchProducts = async () => {
       if (user) {
         try {
